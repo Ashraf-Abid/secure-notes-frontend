@@ -1,9 +1,14 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { Layout } from './components/Layout';
 import { AuthProvider } from './context/AuthContext';
+import { DashboardPage } from './pages/DashboardPage';
+import { LoginPage } from './pages/LoginPage';
+import { RegisterPage } from './pages/RegisterPage';
+import { GuestRoute } from './routes/GuestRoute';
 import { ProtectedRoute } from './routes/ProtectedRoute';
 
 function Placeholder({ title }: { title: string }) {
-  return <h1 className="p-6 text-xl font-semibold">{title}</h1>;
+  return <h1 className="text-xl font-semibold">{title}</h1>;
 }
 
 export default function App() {
@@ -11,22 +16,26 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route path="/login" element={<Placeholder title="Login" />} />
-          <Route path="/register" element={<Placeholder title="Register" />} />
-
-          <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<Placeholder title="Dashboard" />} />
-            <Route path="/notes" element={<Placeholder title="My notes" />} />
-            <Route path="/notes/new" element={<Placeholder title="Create note" />} />
-            <Route path="/notes/:id/edit" element={<Placeholder title="Edit note" />} />
+          <Route element={<GuestRoute />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Route>
 
-          <Route element={<ProtectedRoute adminOnly />}>
-            <Route path="/admin/users" element={<Placeholder title="Manage users" />} />
-            <Route path="/admin/users/new" element={<Placeholder title="Create user" />} />
-            <Route path="/admin/users/:id/edit" element={<Placeholder title="Edit user" />} />
-            <Route path="/admin/notes" element={<Placeholder title="All notes" />} />
-            <Route path="/admin/aggregations" element={<Placeholder title="Aggregation results" />} />
+          <Route element={<ProtectedRoute />}>
+            <Route element={<Layout />}>
+              <Route path="/" element={<DashboardPage />} />
+              <Route path="/notes" element={<Placeholder title="My notes" />} />
+              <Route path="/notes/new" element={<Placeholder title="Create note" />} />
+              <Route path="/notes/:id/edit" element={<Placeholder title="Edit note" />} />
+
+              <Route element={<ProtectedRoute adminOnly />}>
+                <Route path="/admin/users" element={<Placeholder title="Manage users" />} />
+                <Route path="/admin/users/new" element={<Placeholder title="Create user" />} />
+                <Route path="/admin/users/:id/edit" element={<Placeholder title="Edit user" />} />
+                <Route path="/admin/notes" element={<Placeholder title="All notes" />} />
+                <Route path="/admin/aggregations" element={<Placeholder title="Aggregation results" />} />
+              </Route>
+            </Route>
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
