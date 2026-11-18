@@ -2,7 +2,7 @@
 
 React client for the [Secure Notes API](https://github.com/Ashraf-Abid/secure-notes-backend). Users can register, log in and manage their own notes; admins can also manage users, browse everyone's notes and view the aggregation results.
 
-- Live site: _to be added_
+- Live site: https://secure-notes-frontend-olive.vercel.app
 - Backend repository: https://github.com/Ashraf-Abid/secure-notes-backend
 
 ## Tech stack
