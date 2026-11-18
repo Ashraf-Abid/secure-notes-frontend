@@ -16,17 +16,24 @@ export function NoteFormPage() {
 
   useEffect(() => {
     if (!id) return;
+    let ignore = false;
     api
       .get<ApiResponse<Note>>(`/notes/${id}`)
       .then((res) => {
+        if (ignore) return;
         setTitle(res.data.data.title);
         setContent(res.data.data.content);
+        setLoading(false);
       })
       .catch((err) => {
+        if (ignore) return;
         setError(getErrorMessage(err));
         setLoadFailed(true);
-      })
-      .finally(() => setLoading(false));
+        setLoading(false);
+      });
+    return () => {
+      ignore = true;
+    };
   }, [id]);
 
   async function handleSubmit(e: FormEvent) {
