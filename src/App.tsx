@@ -3,6 +3,8 @@ import { Layout } from './components/Layout';
 import { AuthProvider } from './context/AuthContext';
 import { DashboardPage } from './pages/DashboardPage';
 import { LoginPage } from './pages/LoginPage';
+import { NoteFormPage } from './pages/NoteFormPage';
+import { NotesPage } from './pages/NotesPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { GuestRoute } from './routes/GuestRoute';
 import { ProtectedRoute } from './routes/ProtectedRoute';
@@ -24,9 +26,9 @@ export default function App() {
           <Route element={<ProtectedRoute />}>
             <Route element={<Layout />}>
               <Route path="/" element={<DashboardPage />} />
-              <Route path="/notes" element={<Placeholder title="My notes" />} />
-              <Route path="/notes/new" element={<Placeholder title="Create note" />} />
-              <Route path="/notes/:id/edit" element={<Placeholder title="Edit note" />} />
+              <Route path="/notes" element={<NotesPage />} />
+              <Route path="/notes/new" element={<NoteFormPage />} />
+              <Route path="/notes/:id/edit" element={<NoteFormPage />} />
 
               <Route element={<ProtectedRoute adminOnly />}>
                 <Route path="/admin/users" element={<Placeholder title="Manage users" />} />
